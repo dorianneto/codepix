@@ -31,14 +31,14 @@ func (repository PixKeyRepositoryDb) AddAccount(account *model.Account) error {
 	return nil
 }
 
-func (repository PixKeyRepositoryDb) RegisterKey(pixKey *model.PixKey) error {
+func (repository PixKeyRepositoryDb) RegisterKey(pixKey *model.PixKey) (*model.PixKey, error) {
 	err := repository.Db.Create(pixKey).Error
 
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return pixKey, nil
 }
 
 func (repository PixKeyRepositoryDb) FindKeyByKind(key string, kind string) (*model.PixKey, error) {

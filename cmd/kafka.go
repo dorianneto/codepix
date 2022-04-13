@@ -5,8 +5,11 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"os"
+
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/dorianneto/codepix/application/kafka"
+	"github.com/dorianneto/codepix/infrastructure/db"
 	"github.com/spf13/cobra"
 )
 
@@ -16,10 +19,13 @@ var kafkaCmd = &cobra.Command{
 	Short: "Start consuming transactions using Apache Kafka",
 	Run: func(cmd *cobra.Command, args []string) {
 		deliveryChan := make(chan ckafka.Event)
+		database := db.ConnectDB(os.Getenv("env"))
 		producer := kafka.NewKafkaProducer()
 
-		kafka.Publish("Olá Kafka", "test", producer, deliveryChan)
-		kafka.DeliveryReport(deliveryChan)
+		go kafka.DeliveryReport(deliveryChan)
+
+		kafkaProcessor := kafka.NewKafkaProcessor(database, producer, deliveryChan)
+		kafkaProcessor.Consume()
 	},
 }
 

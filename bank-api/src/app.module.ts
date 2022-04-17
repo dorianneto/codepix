@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConsoleModule } from 'nestjs-console';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import BankFixtureCommand from './fixtures/bank-fixture.command';
 import { BankAccount } from './models/bank-account.model';
 
 @Module({
@@ -18,8 +20,9 @@ import { BankAccount } from './models/bank-account.model';
       entities: [BankAccount],
     }),
     TypeOrmModule.forFeature([BankAccount]),
+    ConsoleModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, BankFixtureCommand],
 })
 export class AppModule {}

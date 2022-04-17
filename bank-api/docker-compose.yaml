@@ -24,3 +24,14 @@ services:
     environment:
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=nest
+
+  pgadmin:
+    image: dpage/pgadmin4
+    tty: true
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@user.com
+      - PGADMIN_DEFAULT_PASSWORD=123123
+    ports:
+      - "9001:80"
+    depends_on:
+      - db

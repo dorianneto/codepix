@@ -6,6 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new ModelNotFoundExceptionFilter());
+  app.startAllMicroservices();
   await app.listen(3000);
 }
 bootstrap();

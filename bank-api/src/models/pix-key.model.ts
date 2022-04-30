@@ -10,7 +10,7 @@ import {
 import { BankAccount } from './bank-account.model';
 import { v4 as uuidv4 } from 'uuid';
 
-enum PixKeyKind {
+export enum PixKeyKind {
   cpf = 'cpf',
   email = 'email',
 }

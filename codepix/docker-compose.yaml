@@ -28,6 +28,9 @@ services:
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@user.com
       - PGADMIN_DEFAULT_PASSWORD=123456
+    volumes:
+      - ./servers.json:/pgadmin4/servers.json
+      - ./pgpass:/pgpass
     ports:
       - "9000:80"
     depends_on:

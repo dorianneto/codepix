@@ -1,6 +1,3 @@
-# database
-pgpass
-
 # compiled output
 /dist
 /node_modules
